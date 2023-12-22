@@ -1,5 +1,5 @@
 # halloc
-Custom `heap` written in C; re-implementing the `malloc()` functionalities _for fun and learning_ :)
+Custom `heap` written in C, re-implementing the `malloc()` functionalities _for fun and learning_ :)
 
 ---
 # How it works
