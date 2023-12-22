@@ -1,6 +1,7 @@
 # halloc
 Custom `heap` written in C; re-implementing the `malloc()` functionalities _for fun and learning_ :)
 
+---
 # How it works
 In this paragraph, I'm going to describe how `halloc` works, what's the general idea behind it, where does it get memory from and how it manages it.
 
@@ -42,6 +43,8 @@ Why two?
 `halloc()` needs access to two distinct zones of memory: 
 - One to utilize as the actual `heap`, to get addresses from to give back to the user. We'll call this one __[Page A]__. 
 - A second one to dinamically store `heap_cell` metadata in a linked list. We'll call this one __[Page B]__.
+
+---
 
 # `halloc` in Detail
 In this paragraph, I'm going to cover the data structes and all the specific functions in `halloc` (except for the printing functions and the general linked list research funcion), how they're implemented and their inner workings.   
