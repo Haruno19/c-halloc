@@ -53,11 +53,35 @@ The source code is already extensively commented, this documentation aims to be 
 
 ## Structures
 
-### struct heap  
-The data structure that stores the metadata of the entire heap, is `struct heap`. 
+### `struct heap`  
+The data structure that stores the metadata for the entire `heap`, is `struct heap`.  
+`struct heap` has two fields:
+- `struct heap_cell* head`  
+- `size_t avail`  
 
-### struct heap_cell  
+The `head` field stores the __[Page B]__ start address. __[Page B]__ is where the `heap_cell` metadata linked list is stored, and the head of the list will always be located in the first `sizeof(struct heap_cell)` bytes of __[Page B]__.   
 
+The `avail` files simply stores how much free space is left in the heap. It is not however guaranteed that said space is contiguous memory.
+
+### `struct heap_cell`  
+The data structre that stores the metadata for the single `heap_cell` is `struct heap_cell`.  
+`struct heap_cell` has five fields:
+- `void* start_addr`
+- `size_t size`
+- `int in_use`
+- `int valid`
+- `struct heap_cell *next`  
+
+The `start_addr` field stores the __[Page A]__ address where the space reserved for the `heap_cell` starts. The `start_addr` for head of the list is always set to the first address on __[Page A]__.   
+
+The `size` field stores the size of the `heap_cell`.   
+
+The `in_use` field stores whether (`1`) or not (`0`) the `heap_cell` is currently being used to store some data by the user.  
+
+The `valid` field stores whether (`1`) or not (`0`) the `heap_cell` is a valid cell. A cell is valid if it's contained in the linked list. The vailidity bit is used by the `heap_cell` allocator to determine whether a chunk of `sizeof(struct heap_cell)` bytes in __[Page B]__ is currently being used to store a `strucy heap_cell` or not [see `allocate_cell_meta()` and `hdefrag()` functions].  
+
+The `next` field stores the __[Page B]__ address of the next `struct heap_cell` relative to the current one. A `struct heap_cell Y` is the `next` of a `struct heap_cell X` only if `Y->start_addr` is equal to `X->start_addr + X->size`, meaning if the __[Page A]__ memory chunk pointed by `Y` comes right after the one pointed by `X`.
+ 
 ## Functions 
 
 ### `void *halloc(size_t size)`
