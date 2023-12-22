@@ -11,7 +11,7 @@ struct heap_cell
     size_t size;        //the size of the heap cell
     int in_use;         //whether or not the cell is currently in use. becomes 0 upon freeing the cell
     int valid;          /*whether or not the cell is a valid cell; only valid cells are stored in the linked list.
-                          when "deallocating" a node of the list to merge its cell with the previous' node's one, 
+                          when "deallocating" a node of the list to merge its cell with the previous node's one, 
                           its validity  bit gets set to zero and it gets removed from the list.
                           validity bit set at zero means that the node (struct heap_cell) allocator knows 
                           that chunk of memory in page B can be used to allocate a new struct heap_cell when needed*/
